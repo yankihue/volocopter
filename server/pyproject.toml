@@ -11,6 +11,7 @@ django = "^5.0.1"
 djangorestframework = "^3.14.0"
 markdown = "^3.5.2"
 django-filter = "^23.5"
+django-cors-headers = "^4.3.1"
 
 
 [build-system]
