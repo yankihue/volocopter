@@ -3,11 +3,16 @@ import { useEffect, useState } from "react";
 import { Count, Flight, FlightStatus } from "./types/flight";
 import axios from "axios";
 import AddMissionModal from "./components/AddMissionModal";
+import DeleteMissionModal from "./components/DeleteMissionModal";
 
 function App() {
   const [flights, setFlights] = useState<Flight[]>();
   const [count, setCount] = useState<Count>({} as Count);
   const [showAddMissionModal, setShowAddMissionModal] = useState(false);
+  const [flightToBeDeleted, setFlightToBeDeleted] = useState<number>();
+  type DeletionModalProps = {
+    flightId: number;
+  };
   function flightsByStatus(flights: Flight[], query: string) {
     return flights.filter((flight) => flight.state == query);
   }
@@ -51,12 +56,20 @@ function App() {
                 flightsByStatus(flights, status).map((flight) => {
                   return (
                     <div
-                      key={flight.title}
+                      key={flight.id}
                       className={`p-4 bg-white rounded-lg border border-${
                         ButtonColorMapping[flight.state]
                       }-500 border-l-8 my-2`}
                     >
-                      <h3 className="font-semibold text-xl">{flight.title}</h3>
+                      <div className="justify-between flex-row flex">
+                        {" "}
+                        <h3 className="font-semibold text-xl">
+                          {flight.title}
+                        </h3>
+                        <button onClick={() => setFlightToBeDeleted(flight.id)}>
+                          x
+                        </button>
+                      </div>
                       <div>-</div>
                       <p>{flight.description}</p>
                     </div>
@@ -66,6 +79,9 @@ function App() {
           );
         })}
         {showAddMissionModal && <AddMissionModal></AddMissionModal>}
+        {flightToBeDeleted && (
+          <DeleteMissionModal flightId={flightToBeDeleted} />
+        )}
       </main>
     </>
   );

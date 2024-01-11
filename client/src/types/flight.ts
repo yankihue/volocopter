@@ -1,4 +1,5 @@
 export type Flight = {
+  id: number;
   title: string;
   description: string;
   state: FlightStatus;

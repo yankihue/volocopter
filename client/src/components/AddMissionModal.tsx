@@ -4,7 +4,8 @@ export default function AddMissionModal() {
       {" "}
       <p>
         {" "}
-        <h1 className="text-blue-700 inline font-extrabold">ADD</h1> - Mission
+        <h1 className="text-blue-700 inline font-extrabold uppercase">Add</h1> -
+        Mission
       </p>
       <p>-</p>
       <p className="text-blue-900">Title*</p>
