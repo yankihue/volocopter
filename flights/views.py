@@ -31,3 +31,13 @@ class FlightsList(ListModelMixin, CreateModelMixin, generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
+
+
+# Create your views here.
+class FlightDetails(generics.RetrieveUpdateDestroyAPIView):
+    """
+    List all flights or create a new one.
+    """
+
+    queryset = Flight.objects.all()
+    serializer_class = FlightSerializer

@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from flights import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path("", views.APIRoot.as_view(), name="api-root"),
     path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls")),
-    path("flights/", views.FlightsList.as_view(), name="flights"),
+    path("flights/", views.FlightsList.as_view()),
+    path("flights/<int:pk>/", views.FlightDetails.as_view()),
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
