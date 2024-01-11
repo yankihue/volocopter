@@ -18,7 +18,7 @@ function App() {
   }, []);
   return (
     <>
-      <h1>Flight Mission Control Tool</h1>
+      <h1 className="text-4xl ">Flight Mission Control Tool</h1>
     </>
   );
 }
