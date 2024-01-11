@@ -4,12 +4,12 @@ export type Flight = {
   state: FlightStatus;
 };
 export enum FlightStatus {
-  PRE_FLIGHT = "Pre-flight",
-  IN_FLIGHT = "In-flight",
-  POST_FLIGHT = "Post-flight",
+  PRE_FLIGHT = "Pre-Flight",
+  IN_FLIGHT = "In-Flight",
+  POST_FLIGHT = "Post-Flight",
 }
 export type Count = {
-  PRE_FLIGHT: number;
-  IN_FLIGHT: number;
-  POST_FLIGHT: number;
+  [FlightStatus.PRE_FLIGHT]: number;
+  [FlightStatus.IN_FLIGHT]: number;
+  [FlightStatus.POST_FLIGHT]: number;
 };
