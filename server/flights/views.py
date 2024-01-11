@@ -31,13 +31,15 @@ class FlightsList(CreateModelMixin, generics.GenericAPIView):
     def get_flights_count(self):
         flights_count = {}
         for state in Flight.FlightStatus:
-            flights_count[state] = Flight.objects.filter(state=state).count()
+            flights_count[state.name] = Flight.objects.filter(state=state).count()
         return flights_count
 
     def get(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = FlightSerializer(queryset, many=True)
-        return Response(serializer.data + [{"count": self.get_flights_count()}])
+        return Response(
+            {"flights": serializer.data} | {"count": self.get_flights_count()}
+        )
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
