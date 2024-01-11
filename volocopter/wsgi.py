@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'volocopter.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "volocopter.settings")
 
 application = get_wsgi_application()
