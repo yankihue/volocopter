@@ -2,10 +2,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Count, Flight, FlightStatus } from "./types/flight";
 import axios from "axios";
+import AddMissionModal from "./components/AddMissionModal";
+
 function App() {
   const [flights, setFlights] = useState<Flight[]>();
   const [count, setCount] = useState<Count>({} as Count);
-
+  const [showAddMissionModal, setShowAddMissionModal] = useState(false);
   function flightsByStatus(flights: Flight[], query: string) {
     return flights.filter((flight) => flight.state == query);
   }
@@ -29,7 +31,15 @@ function App() {
   }, []);
   return (
     <>
-      <header className="text-4xl p-8">Flight Mission Control Tool</header>
+      <header className=" p-8 justify-between flex">
+        <h1 className="text-4xl"> Flight Mission Control Tool</h1>
+        <button
+          className="uppercase font-extrabold bg-gray-300 p-3 rounded-lg"
+          onClick={() => setShowAddMissionModal(true)}
+        >
+          Add Mission
+        </button>
+      </header>
       <main className="flex-row flex space-x-4">
         {Object.values(FlightStatus).map((status) => {
           return (
@@ -55,6 +65,7 @@ function App() {
             </div>
           );
         })}
+        {showAddMissionModal && <AddMissionModal></AddMissionModal>}
       </main>
     </>
   );
