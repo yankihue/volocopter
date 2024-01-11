@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework import generics
+from rest_framework.decorators import action
+from django.db.models import Q, Count
 
 
 class APIRoot(generics.GenericAPIView):
@@ -18,7 +20,7 @@ class APIRoot(generics.GenericAPIView):
 
 
 # Create your views here.
-class FlightsList(ListModelMixin, CreateModelMixin, generics.GenericAPIView):
+class FlightsList(CreateModelMixin, generics.GenericAPIView):
     """
     List all flights or create a new one.
     """
@@ -26,8 +28,16 @@ class FlightsList(ListModelMixin, CreateModelMixin, generics.GenericAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
+    def get_flights_count(self):
+        flights_count = {}
+        for state in Flight.FlightStatus:
+            flights_count[state] = Flight.objects.filter(state=state).count()
+        return flights_count
+
     def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = FlightSerializer(queryset, many=True)
+        return Response(serializer.data + [{"count": self.get_flights_count()}])
 
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
@@ -36,7 +46,7 @@ class FlightsList(ListModelMixin, CreateModelMixin, generics.GenericAPIView):
 # Create your views here.
 class FlightDetails(generics.RetrieveUpdateDestroyAPIView):
     """
-    List all flights or create a new one.
+    Create, read, update or delete a flight.
     """
 
     queryset = Flight.objects.all()
