@@ -79,34 +79,37 @@ export default function AddMissionModal({
                   </h1>{" "}
                   - Mission
                 </p>
-                <p className="text-blue-900">Title*</p>
-                <input
-                  onChange={onChange}
-                  name="title"
-                  className="border border-gray-400 rounded-t-lg p-2"
-                  placeholder="Enter title..."
-                />
-                <p className="text-blue-900">Description</p>{" "}
-                <input
-                  onChange={onChange}
-                  name="description"
-                  className="border border-gray-400 rounded-t-lg p-2"
-                  placeholder="Enter description..."
-                />
-                <div className="ml-auto">
-                  <button
-                    onClick={closeModal}
-                    className="bg-gray-400 uppercase text-black font-semibold rounded-l-lg p-2"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => addMission()}
-                    className="bg-blue-900 uppercase text-white font-semibold rounded-r-lg m-1 p-2"
-                  >
-                    Create
-                  </button>
-                </div>
+                <>
+                  <label className="text-blue-900">Title*</label>
+                  <input
+                    onChange={onChange}
+                    name="title"
+                    className="border border-gray-400 rounded-t-lg p-2"
+                    placeholder="Enter title..."
+                  />
+                  <label className="text-blue-900">Description</label>
+                  <input
+                    onChange={onChange}
+                    name="description"
+                    className="border border-gray-400 rounded-t-lg p-2"
+                    placeholder="Enter description..."
+                  />
+
+                  <div className="ml-auto">
+                    <button
+                      onClick={closeModal}
+                      className="bg-gray-400 uppercase text-black font-semibold rounded-l-lg p-2"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => addMission()}
+                      className="bg-blue-900 uppercase text-white font-semibold rounded-r-lg m-1 p-2"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </>
               </Dialog.Panel>
             </Transition.Child>
           </div>
