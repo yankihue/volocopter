@@ -1,4 +1,6 @@
-import { FlightStatus, Flight } from "./types/flight";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { FlightStatus, Flight, MoveAction } from "./types/flight";
 
 export function isFinalStatus(status: FlightStatus) {
   //Return true if current status is the last possible one
@@ -6,6 +8,13 @@ export function isFinalStatus(status: FlightStatus) {
     Object.values(FlightStatus).indexOf(status) + 1 >=
     Object.values(FlightStatus).length
   ) {
+    return true;
+  }
+  return false;
+}
+export function isFirstStatus(status: FlightStatus) {
+  //Return true if current status is the first possible one
+  if (Object.values(FlightStatus).indexOf(status) === 0) {
     return true;
   }
   return false;
@@ -19,3 +28,27 @@ export const ButtonColorMapping = {
   "In-Flight": "blue",
   "Post-Flight": "green",
 };
+export function statusMap(status: FlightStatus) {
+  return Object.values(FlightStatus).indexOf(status);
+}
+export function handleMoveFlight(
+  id: number,
+  currentState: FlightStatus,
+  direction: MoveAction,
+  setIsUpdated: (valu: boolean) => void
+) {
+  const nextStateIndex =
+    direction === "next"
+      ? Object.values(FlightStatus).indexOf(currentState) + 1
+      : Object.values(FlightStatus).indexOf(currentState) - 1;
+
+  const nextState = Object.values(FlightStatus)[nextStateIndex];
+  return axios
+    .patch(`http://127.0.0.1:8000/flights/${id}/`, {
+      state: nextState,
+    })
+    .then(() => {
+      setIsUpdated(true);
+      toast.success("Successfully moved mission to the next status");
+    });
+}

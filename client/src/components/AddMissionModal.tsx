@@ -73,12 +73,13 @@ export default function AddMissionModal({
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="space-y-2 flex-col flex max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <p>
-                  <h1 className="text-blue-700 inline font-extrabold uppercase">
-                    Add
-                  </h1>{" "}
-                  - Mission
-                </p>
+                <span className="text-blue-700 inline font-extrabold uppercase">
+                  Add{" "}
+                  <div className="inline font-normal normal-case text-black">
+                    {" "}
+                    - Mission
+                  </div>
+                </span>
                 <>
                   <label className="text-blue-900">Title*</label>
                   <input

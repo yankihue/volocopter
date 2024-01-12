@@ -14,3 +14,7 @@ export type Count = {
   [FlightStatus.IN_FLIGHT]: number;
   [FlightStatus.POST_FLIGHT]: number;
 };
+export enum MoveAction {
+  NEXT = "next",
+  PREVIOUS = "previous",
+}

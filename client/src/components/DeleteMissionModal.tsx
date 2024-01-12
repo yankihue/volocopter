@@ -60,9 +60,9 @@ export default function DeleteMissionModal({
             >
               <Dialog.Panel className="divide-y space-y-2 flex-col flex max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <p>
-                  <h1 className="text-blue-700 inline font-extrabold uppercase">
+                  <span className="text-blue-700 inline font-extrabold uppercase">
                     Delete
-                  </h1>{" "}
+                  </span>{" "}
                   - Mission {flightId}
                 </p>
                 <p className="text-blue-900">
