@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
 import { Fragment } from "react";
+import toast from "react-hot-toast";
 type DeleteMissionModalProps = {
   flightId: number;
   setUpdated: any;
@@ -19,6 +20,7 @@ export default function DeleteMissionModal({
       .then(() => {
         setUpdated(true);
         closeModal();
+        toast.success("Mission deleted succesfully!");
       });
   }
   function closeModal() {
@@ -65,7 +67,10 @@ export default function DeleteMissionModal({
                   Are you sure? You can't undo this action afterwards.
                 </p>
                 <div className="ml-auto">
-                  <button className="bg-gray-400 uppercase text-black font-semibold rounded-l-lg p-2">
+                  <button
+                    onClick={closeModal}
+                    className="bg-gray-400 uppercase text-black font-semibold rounded-l-lg p-2"
+                  >
                     Cancel
                   </button>
                   <button

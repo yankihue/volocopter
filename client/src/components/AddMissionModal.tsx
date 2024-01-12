@@ -1,6 +1,7 @@
 import { Transition, Dialog } from "@headlessui/react";
 import axios from "axios";
 import { Fragment, useState } from "react";
+import toast from "react-hot-toast";
 
 type AddMissionModalProps = {
   showAddMissionModal: boolean;
@@ -29,6 +30,7 @@ export default function AddMissionModal({
       .then(() => {
         setUpdated(true);
         closeModal();
+        toast.success("Mission created succesfully!");
       });
   }
   function closeModal() {

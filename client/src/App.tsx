@@ -6,6 +6,7 @@ import AddMissionModal from "./components/AddMissionModal";
 import DeleteMissionModal from "./components/DeleteMissionModal";
 import { ButtonColorMapping } from "./utils/color";
 import flightsByStatus from "./utils/filter";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const [flights, setFlights] = useState<Flight[]>();
@@ -41,6 +42,8 @@ function App() {
 
   return (
     <>
+      {" "}
+      <Toaster position="bottom-center" />
       <header className=" p-8 justify-between flex">
         <h1 className="text-4xl"> Flight Mission Control Tool</h1>
         <button
