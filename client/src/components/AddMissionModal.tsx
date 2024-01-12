@@ -16,15 +16,15 @@ export default function AddMissionModal({
   setShowAddMissionModal,
   setUpdated,
 }: AddMissionModalProps) {
-  // const [missionData, setMissionData] = useState<FlightForm>({
-  //   title: "",
-  //   description: "",
-  // });
-  function addMission(flight: FlightForm) {
+  const [missionData, setMissionData] = useState<FlightForm>({
+    title: "",
+    description: "",
+  });
+  function addMission() {
     return axios
       .post("http://127.0.0.1:8000/flights/", {
-        title: flight.title,
-        description: flight.description,
+        title: missionData.title,
+        description: missionData.description,
       })
       .then(() => {
         setUpdated(true);
@@ -34,7 +34,9 @@ export default function AddMissionModal({
   function closeModal() {
     setShowAddMissionModal(false);
   }
-
+  const onChange = (e: any) => {
+    setMissionData({ ...missionData, [e.target.name]: e.target.value });
+  };
   return (
     <Transition appear show={showAddMissionModal} as={Fragment}>
       <Dialog
@@ -73,12 +75,14 @@ export default function AddMissionModal({
                 <p>-</p>
                 <p className="text-blue-900">Title*</p>
                 <input
+                  onChange={onChange}
                   name="title"
                   className="border border-gray-400 rounded-t-lg p-2"
                   placeholder="Enter title..."
                 />
                 <p className="text-blue-900">Description</p>{" "}
                 <input
+                  onChange={onChange}
                   name="description"
                   className="border border-gray-400 rounded-t-lg p-2"
                   placeholder="Enter description..."
@@ -91,9 +95,7 @@ export default function AddMissionModal({
                     Cancel
                   </button>
                   <button
-                    onClick={() =>
-                      addMission({ title: "Test Flight", description: "Test" })
-                    }
+                    onClick={() => addMission()}
                     className="bg-blue-900 uppercase text-white font-semibold rounded-r-lg m-1 p-2"
                   >
                     Create
