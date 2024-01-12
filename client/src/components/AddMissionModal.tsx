@@ -1,6 +1,6 @@
 import { Transition, Dialog } from "@headlessui/react";
 import axios from "axios";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 type AddMissionModalProps = {
   showAddMissionModal: boolean;
@@ -16,14 +16,20 @@ export default function AddMissionModal({
   setShowAddMissionModal,
   setUpdated,
 }: AddMissionModalProps) {
-  // const [missionData, setMissionData] useState();
+  // const [missionData, setMissionData] = useState<FlightForm>({
+  //   title: "",
+  //   description: "",
+  // });
   function addMission(flight: FlightForm) {
     return axios
       .post("http://127.0.0.1:8000/flights/", {
         title: flight.title,
         description: flight.description,
       })
-      .then(() => setUpdated(true));
+      .then(() => {
+        setUpdated(true);
+        closeModal();
+      });
   }
   function closeModal() {
     setShowAddMissionModal(false);
@@ -67,11 +73,13 @@ export default function AddMissionModal({
                 <p>-</p>
                 <p className="text-blue-900">Title*</p>
                 <input
+                  name="title"
                   className="border border-gray-400 rounded-t-lg p-2"
                   placeholder="Enter title..."
                 />
                 <p className="text-blue-900">Description</p>{" "}
                 <input
+                  name="description"
                   className="border border-gray-400 rounded-t-lg p-2"
                   placeholder="Enter description..."
                 />
