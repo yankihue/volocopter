@@ -5,8 +5,8 @@ import toast from "react-hot-toast";
 
 type AddMissionModalProps = {
   showAddMissionModal: boolean;
-  setShowAddMissionModal: any;
-  setUpdated: any;
+  setShowAddMissionModal: (value: boolean) => void;
+  setUpdated: (value: boolean) => void;
 };
 type FlightForm = {
   title: string;
@@ -41,7 +41,7 @@ export default function AddMissionModal({
   function closeModal() {
     setShowAddMissionModal(false);
   }
-  const onChange = (e: any) => {
+  const onChange = (e: { target: { name: any; value: any } }) => {
     setMissionData({ ...missionData, [e.target.name]: e.target.value });
   };
   return (

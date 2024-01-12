@@ -4,9 +4,9 @@ import { Fragment } from "react";
 import toast from "react-hot-toast";
 type DeleteMissionModalProps = {
   flightId: number;
-  setUpdated: any;
+  setUpdated: (value: boolean) => void;
   showDeleteMissionModal: boolean;
-  setShowDeleteMissionModal: any;
+  setShowDeleteMissionModal: (value: boolean) => void;
 };
 export default function DeleteMissionModal({
   flightId,
