@@ -4,36 +4,39 @@ import { Count, Flight, FlightStatus } from "./types/flight";
 import axios from "axios";
 import AddMissionModal from "./components/AddMissionModal";
 import DeleteMissionModal from "./components/DeleteMissionModal";
+import { ButtonColorMapping } from "./utils/color";
+import flightsByStatus from "./utils/filter";
 
 function App() {
   const [flights, setFlights] = useState<Flight[]>();
   const [count, setCount] = useState<Count>({} as Count);
   const [showAddMissionModal, setShowAddMissionModal] = useState(false);
   const [flightToBeDeleted, setFlightToBeDeleted] = useState<number>();
-  type DeletionModalProps = {
-    flightId: number;
-  };
-  function flightsByStatus(flights: Flight[], query: string) {
-    return flights.filter((flight) => flight.state == query);
-  }
+  const [isUpdated, setIsUpdated] = useState(false);
 
-  const ButtonColorMapping = {
-    "Pre-Flight": "orange",
-    "In-Flight": "blue",
-    "Post-Flight": "green",
-  };
   useEffect(() => {
+    let mounted = true;
+    if (flights?.length && !isUpdated) {
+      return;
+    }
     axios
       .get("http://localhost:8000/flights/")
       .then((response) => {
-        setFlights(response.data.flights);
-        setCount(response.data.count);
-        console.log(count);
+        if (mounted) {
+          setFlights(response.data.flights);
+          setCount(response.data.count);
+          console.log(count);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+    return () => {
+      mounted = false;
+      setIsUpdated(false);
+    };
+  }, [isUpdated, flights]);
+
   return (
     <>
       <header className=" p-8 justify-between flex">
@@ -78,7 +81,12 @@ function App() {
             </div>
           );
         })}
-        {showAddMissionModal && <AddMissionModal></AddMissionModal>}
+        {
+          <AddMissionModal
+            showAddMissionModal={showAddMissionModal}
+            setShowAddMissionModal={setShowAddMissionModal}
+          ></AddMissionModal>
+        }
         {flightToBeDeleted && (
           <DeleteMissionModal flightId={flightToBeDeleted} />
         )}
