@@ -76,6 +76,7 @@ export default function DeleteMissionModal({
                     Cancel
                   </button>
                   <button
+                    data-testid={`ConfirmDeleteButton${flightId}`}
                     onClick={() => deleteMission()}
                     className="bg-blue-900 uppercase text-white font-semibold rounded-r-lg m-1 p-2"
                   >

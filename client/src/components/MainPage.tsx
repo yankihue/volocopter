@@ -71,7 +71,7 @@ function App() {
               className="bg-gray-100 rounded-lg flex flex-col w-1/3 p-6"
               key={status}
             >
-              <h2 className="p-4 font-bold">
+              <h2 className="p-4 font-bold" data-testid={`Header ${status}`}>
                 {status} ({Object.values(count)[statusMap(status)]})
               </h2>
               <div className="space-y-6">
@@ -93,6 +93,7 @@ function App() {
 
                             {!isFirstStatus(flight.state) ? (
                               <button
+                                data-testid={`MoveLeftButton${flight.id}`}
                                 onClick={() => {
                                   handleMoveFlight(
                                     flight.id,
@@ -107,6 +108,7 @@ function App() {
                             ) : null}
                             {/* Delete button */}
                             <button
+                              data-testid={`DeleteButton${flight.id}`}
                               onClick={() => {
                                 setShowDeleteMissionModal(true);
                                 setFlightToBeDeleted(flight.id);
@@ -117,6 +119,7 @@ function App() {
                             {/* Progress status button. Render only if current status is not the final status */}
                             {!isFinalStatus(flight.state) ? (
                               <button
+                                data-testid={`MoveRightButton${flight.id}`}
                                 onClick={() => {
                                   handleMoveFlight(
                                     flight.id,
