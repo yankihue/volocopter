@@ -11,6 +11,7 @@ function App() {
   const [flights, setFlights] = useState<Flight[]>();
   const [count, setCount] = useState<Count>({} as Count);
   const [showAddMissionModal, setShowAddMissionModal] = useState(false);
+  const [showDeleteMissionModal, setShowDeleteMissionModal] = useState(false);
   const [flightToBeDeleted, setFlightToBeDeleted] = useState<number>();
   const [isUpdated, setIsUpdated] = useState(false);
 
@@ -70,7 +71,12 @@ function App() {
                         <h3 className="font-semibold text-xl">
                           {flight.title}
                         </h3>
-                        <button onClick={() => setFlightToBeDeleted(flight.id)}>
+                        <button
+                          onClick={() => {
+                            setShowDeleteMissionModal(true);
+                            setFlightToBeDeleted(flight.id);
+                          }}
+                        >
                           x
                         </button>
                       </div>
@@ -90,7 +96,12 @@ function App() {
           />
         }
         {flightToBeDeleted && (
-          <DeleteMissionModal flightId={flightToBeDeleted} />
+          <DeleteMissionModal
+            showDeleteMissionModal={showDeleteMissionModal}
+            setShowDeleteMissionModal={setShowDeleteMissionModal}
+            setUpdated={setIsUpdated}
+            flightId={flightToBeDeleted}
+          />
         )}
       </main>
     </>
