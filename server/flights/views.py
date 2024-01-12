@@ -28,6 +28,7 @@ class FlightsList(CreateModelMixin, generics.GenericAPIView):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
 
+    # Return to the number of flights grouped by state
     def get_flights_count(self):
         flights_count = {}
         for state in Flight.FlightStatus:

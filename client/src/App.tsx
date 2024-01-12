@@ -32,6 +32,7 @@ function App() {
         console.log(error);
       });
     return () => {
+      // Cleanup
       mounted = false;
       setIsUpdated(false);
     };
@@ -85,7 +86,8 @@ function App() {
           <AddMissionModal
             showAddMissionModal={showAddMissionModal}
             setShowAddMissionModal={setShowAddMissionModal}
-          ></AddMissionModal>
+            setUpdated={setIsUpdated}
+          />
         }
         {flightToBeDeleted && (
           <DeleteMissionModal flightId={flightToBeDeleted} />
