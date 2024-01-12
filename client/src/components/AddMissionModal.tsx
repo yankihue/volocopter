@@ -61,7 +61,10 @@ export default function AddMissionModal({
         >
           <div className="fixed inset-0 bg-black/25" />
         </Transition.Child>
-        <div className="fixed inset-0 overflow-y-auto">
+        <div
+          className="fixed inset-0 overflow-y-auto"
+          data-testid="CreateMissionContainer"
+        >
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
@@ -98,12 +101,14 @@ export default function AddMissionModal({
 
                   <div className="ml-auto">
                     <button
+                      data-testid="CancelCreateButton"
                       onClick={closeModal}
                       className="bg-gray-400 uppercase text-black font-semibold rounded-l-lg p-2"
                     >
                       Cancel
                     </button>
                     <button
+                      data-testid="ConfirmCreateButton"
                       onClick={() => addMission()}
                       className="bg-blue-900 uppercase text-white font-semibold rounded-r-lg m-1 p-2"
                     >

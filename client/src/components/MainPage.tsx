@@ -56,6 +56,7 @@ function App() {
           Flight Mission Control Tool
         </h1>
         <button
+          data-testid="AddMissionButton"
           className="uppercase font-extrabold bg-gray-300 p-3 rounded-lg"
           onClick={() => setShowAddMissionModal(true)}
         >

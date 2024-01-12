@@ -16,13 +16,14 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-scripts": "5.0.1",
+    "resize-observer-polyfill": "^1.5.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
