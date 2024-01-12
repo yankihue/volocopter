@@ -20,7 +20,11 @@ export default function DeleteMissionModal({
       .then(() => {
         setUpdated(true);
         closeModal();
-        toast.success("Mission deleted succesfully!");
+        toast.success(
+          <div className="flex flex-col text-center">
+            <h3 className="font-bold text-lg">Successfully deleted mission</h3>
+          </div>
+        );
       });
   }
   function closeModal() {

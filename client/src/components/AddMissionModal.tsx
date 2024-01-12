@@ -30,7 +30,12 @@ export default function AddMissionModal({
       .then(() => {
         setUpdated(true);
         closeModal();
-        toast.success("Mission created succesfully!");
+        toast.success(
+          <div className="flex flex-col text-center">
+            <h3 className="font-bold text-lg">Successfully created mission</h3>
+            <p>New mission is added to Pre-flight</p>
+          </div>
+        );
       });
   }
   function closeModal() {
