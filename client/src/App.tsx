@@ -6,7 +6,7 @@ import AddMissionModal from "./components/AddMissionModal";
 import DeleteMissionModal from "./components/DeleteMissionModal";
 import { ButtonColorMapping } from "./utils/color";
 import flightsByStatus from "./utils/filter";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const [flights, setFlights] = useState<Flight[]>();
@@ -26,12 +26,13 @@ function App() {
       .then((response) => {
         if (mounted) {
           setFlights(response.data.flights);
-          setCount(response.data.count);
-          console.log(count);
+          setCount(response.data.count); // Get the count by flight state data from backend, no client side calculation needed
         }
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(
+          "There was a problem fetching the flights. Did you start the server?"
+        );
       });
     return () => {
       // Cleanup
@@ -39,7 +40,9 @@ function App() {
       setIsUpdated(false);
     };
   }, [isUpdated, flights]);
-
+  function statusMap(status: FlightStatus) {
+    return Object.values(FlightStatus).indexOf(status);
+  }
   return (
     <>
       {" "}
@@ -58,36 +61,36 @@ function App() {
           return (
             <div className="bg-gray-100 rounded-lg flex flex-col w-1/3 p-6 m-6">
               <h2 className="p-4 font-bold">
-                {status} ({count[status]})
+                {status} ({Object.values(count)[statusMap(status)]})
               </h2>
-              {flights &&
-                flightsByStatus(flights, status).map((flight) => {
-                  return (
-                    <div
-                      key={flight.id}
-                      className={`p-4 bg-white rounded-lg border border-${
-                        ButtonColorMapping[flight.state]
-                      }-500 border-l-8 my-2`}
-                    >
-                      <div className="justify-between flex-row flex">
-                        {" "}
-                        <h3 className="font-semibold text-xl">
-                          {flight.title}
-                        </h3>
-                        <button
-                          onClick={() => {
-                            setShowDeleteMissionModal(true);
-                            setFlightToBeDeleted(flight.id);
-                          }}
-                        >
-                          x
-                        </button>
+              <div className="space-y-6">
+                {flights &&
+                  flightsByStatus(flights, status).map((flight) => {
+                    return (
+                      <div
+                        key={flight.id}
+                        className={`p-4 bg-white rounded-lg divide-y border border-${
+                          ButtonColorMapping[flight.state]
+                        }-500 border-l-8`}
+                      >
+                        <div className="justify-between flex-row flex">
+                          <h3 className="font-semibold text-xl">
+                            {flight.title}
+                          </h3>
+                          <button
+                            onClick={() => {
+                              setShowDeleteMissionModal(true);
+                              setFlightToBeDeleted(flight.id);
+                            }}
+                          >
+                            x
+                          </button>
+                        </div>
+                        <p>{flight.description}</p>
                       </div>
-                      <div>-</div>
-                      <p>{flight.description}</p>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
             </div>
           );
         })}

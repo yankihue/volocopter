@@ -79,7 +79,6 @@ export default function AddMissionModal({
                   </h1>{" "}
                   - Mission
                 </p>
-                <p>-</p>
                 <p className="text-blue-900">Title*</p>
                 <input
                   onChange={onChange}
