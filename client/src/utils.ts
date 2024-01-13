@@ -24,9 +24,12 @@ export function flightsByStatus(flights: Flight[], query: string) {
   return flights.filter((flight) => flight.state === query);
 }
 export const ButtonColorMapping = {
-  "Pre-Flight": "orange",
-  "In-Flight": "blue",
-  "Post-Flight": "green",
+  "Pre-Flight":
+    "p-4 bg-white rounded-lg divide-y border border-l-8 border-orange-500",
+  "In-Flight":
+    "p-4 bg-white rounded-lg divide-y border border-l-8 border-blue-500",
+  "Post-Flight":
+    "p-4 bg-white rounded-lg divide-y border border-l-8 border-green-500",
 };
 export function statusMap(status: FlightStatus) {
   return Object.values(FlightStatus).indexOf(status);

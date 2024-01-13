@@ -17,8 +17,12 @@ import MoveLeftIcon from "../assets/MoveLeftIcon";
 import MoveRightIcon from "../assets/MoveRightIcon";
 
 function App() {
-  const [flights, setFlights] = useState<Flight[]>();
-  const [count, setCount] = useState<Count>({} as Count);
+  const [flights, setFlights] = useState<Flight[]>([]);
+  const [count, setCount] = useState<Count>({
+    "Post-Flight": 0,
+    "In-Flight": 0,
+    "Pre-Flight": 0,
+  } as Count);
   const [showAddMissionModal, setShowAddMissionModal] = useState(false);
   const [showDeleteMissionModal, setShowDeleteMissionModal] = useState(false);
   const [flightToBeDeleted, setFlightToBeDeleted] = useState<number>();
@@ -79,9 +83,7 @@ function App() {
                     return (
                       <div
                         key={flight.id}
-                        className={`p-4 bg-white rounded-lg divide-y border border-${
-                          ButtonColorMapping[flight.state]
-                        }-500 border-l-8`}
+                        className={`${ButtonColorMapping[flight.state]}`}
                       >
                         <div className="justify-between flex-row flex">
                           <h3 className="font-semibold text-xl">
