@@ -3,6 +3,10 @@ from django.db import models
 
 # Create your models here.
 class Flight(models.Model):
+    """
+    Model to represent a flight mission recorded in the database.
+    """
+
     class FlightStatus(models.TextChoices):
         # Possible flight status types
         PRE_FLIGHT = "Pre-Flight"

@@ -52,7 +52,6 @@ function App() {
       <Toaster position="bottom-center" />
       <header className=" p-8 justify-between flex">
         <h1 className="text-lg sm:text-2xl md:text-4xl">
-          {" "}
           Flight Mission Control Tool
         </h1>
         <button

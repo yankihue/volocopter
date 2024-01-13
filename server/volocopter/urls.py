@@ -23,7 +23,7 @@ urlpatterns = [
     path("", views.APIRoot.as_view(), name="api-root"),
     path("admin/", admin.site.urls),
     path("api/", include("rest_framework.urls")),
-    path("flights/", views.FlightsList.as_view()),
-    path("flights/<int:pk>/", views.FlightDetails.as_view()),
+    path("flights/", views.FlightsList.as_view(), name="flights-list"),
+    path("flights/<int:pk>/", views.FlightDetails.as_view(), name="flight-detail"),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

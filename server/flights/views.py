@@ -14,7 +14,7 @@ class APIRoot(generics.GenericAPIView):
     def get(self, request, format=None):
         return Response(
             {
-                "flights": reverse("flights", request=request, format=format),
+                "flights": reverse("flights-list", request=request, format=format),
             }
         )
 
